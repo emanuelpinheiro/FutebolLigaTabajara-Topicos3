@@ -5,7 +5,30 @@ using System.Web;
 
 namespace FutebolLigaTabajara.Models
 {
-    public class Enums
+    public enum Posicao
     {
+        Goleiro,
+        Zagueiro,
+        Volante,
+        Meia,
+        Atacante
     }
+
+    public enum PePreferido
+    {
+        Direito,
+        Esquerdo,
+        Ambidestro
+    }
+
+    public enum Cargo
+    {
+        Treinador,
+        Auxiliar,
+        PreparadorFisico,
+        Fisiologista,
+        TreinadorGoleiros,
+        Fisioterapeuta
+    }
+
 }
