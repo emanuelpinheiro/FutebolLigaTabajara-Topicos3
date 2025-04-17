@@ -11,116 +11,107 @@ using FutebolLigaTabajara.Models;
 
 namespace FutebolLigaTabajara.Controllers
 {
-    public class EstatisticasController : Controller
+    public class TimeController : Controller
     {
         private LigaDBContext db = new LigaDBContext();
 
-        // GET: Estatisticas
+        // GET: Time
         public ActionResult Index()
         {
-            var estatisticas = db.Estatisticas.Include(e => e.Jogador).Include(e => e.Partida);
-            return View(estatisticas.ToList());
+            return View(db.Times.ToList());
         }
 
-        // GET: Estatisticas/Details/5
+        // GET: Time/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estatistica estatistica = db.Estatisticas.Find(id);
-            if (estatistica == null)
+            Time time = db.Times.Find(id);
+            if (time == null)
             {
                 return HttpNotFound();
             }
-            return View(estatistica);
+            return View(time);
         }
 
-        // GET: Estatisticas/Create
+        // GET: Time/Create
         public ActionResult Create()
         {
-            ViewBag.JogadorId = new SelectList(db.Jogadores, "JogadorId", "Nome");
-            ViewBag.PartidaId = new SelectList(db.Partidas, "PartidaId", "Estadio");
             return View();
         }
 
-        // POST: Estatisticas/Create
+        // POST: Time/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EstatisticaId,JogadorId,PartidaId,Gols,Assistencias,Titular,MinutosJogador")] Estatistica estatistica)
+        public ActionResult Create([Bind(Include = "TimeId,Nome,Cidade,Estado,AnoFundacao,Estadio,CapacidadeEstadio,CorUniformePrimaria,CorUniformeSecundaria,Status")] Time time)
         {
             if (ModelState.IsValid)
             {
-                db.Estatisticas.Add(estatistica);
+                db.Times.Add(time);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.JogadorId = new SelectList(db.Jogadores, "JogadorId", "Nome", estatistica.JogadorId);
-            ViewBag.PartidaId = new SelectList(db.Partidas, "PartidaId", "Estadio", estatistica.PartidaId);
-            return View(estatistica);
+            return View(time);
         }
 
-        // GET: Estatisticas/Edit/5
+        // GET: Time/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estatistica estatistica = db.Estatisticas.Find(id);
-            if (estatistica == null)
+            Time time = db.Times.Find(id);
+            if (time == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.JogadorId = new SelectList(db.Jogadores, "JogadorId", "Nome", estatistica.JogadorId);
-            ViewBag.PartidaId = new SelectList(db.Partidas, "PartidaId", "Estadio", estatistica.PartidaId);
-            return View(estatistica);
+            return View(time);
         }
 
-        // POST: Estatisticas/Edit/5
+        // POST: Time/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EstatisticaId,JogadorId,PartidaId,Gols,Assistencias,Titular,MinutosJogador")] Estatistica estatistica)
+        public ActionResult Edit([Bind(Include = "TimeId,Nome,Cidade,Estado,AnoFundacao,Estadio,CapacidadeEstadio,CorUniformePrimaria,CorUniformeSecundaria,Status")] Time time)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(estatistica).State = EntityState.Modified;
+                db.Entry(time).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.JogadorId = new SelectList(db.Jogadores, "JogadorId", "Nome", estatistica.JogadorId);
-            ViewBag.PartidaId = new SelectList(db.Partidas, "PartidaId", "Estadio", estatistica.PartidaId);
-            return View(estatistica);
+            return View(time);
         }
 
-        // GET: Estatisticas/Delete/5
+        // GET: Time/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estatistica estatistica = db.Estatisticas.Find(id);
-            if (estatistica == null)
+            Time time = db.Times.Find(id);
+            if (time == null)
             {
                 return HttpNotFound();
             }
-            return View(estatistica);
+            return View(time);
         }
 
-        // POST: Estatisticas/Delete/5
+        // POST: Time/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Estatistica estatistica = db.Estatisticas.Find(id);
-            db.Estatisticas.Remove(estatistica);
+            Time time = db.Times.Find(id);
+            db.Times.Remove(time);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

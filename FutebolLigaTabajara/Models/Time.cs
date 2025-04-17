@@ -20,6 +20,15 @@ namespace FutebolLigaTabajara.Models
 
         public virtual ICollection<Jogador> Jogadores { get; set; }
         public virtual ICollection<ComissaoTecnica> ComissaoTecnica { get; set; }
-    }
 
+        public bool EstaApto()
+        {
+            var cargosUnicos = ComissaoTecnica?.Select(c => c.Cargo).Distinct().Count() ?? 0;
+
+            return
+                Jogadores?.Count >= 30 &&
+                ComissaoTecnica?.Count >= 5 &&
+                cargosUnicos == ComissaoTecnica?.Count;
+        }
+    }
 }

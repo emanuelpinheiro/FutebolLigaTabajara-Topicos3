@@ -15,7 +15,7 @@ namespace FutebolLigaTabajara
         public DbSet<Partida> Partidas { get; set; }
         public DbSet<Estatistica> Estatisticas { get; set; }
 
-        public LigaDBContext() : base("DefaultConnection") { }
+        public LigaDBContext() : base("LigaDBContext") { }
     }
 
 }

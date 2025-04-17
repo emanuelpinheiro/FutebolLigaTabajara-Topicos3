@@ -1,0 +1,90 @@
+﻿@model FutebolLigaTabajara.Models.Time
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Time</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnoFundacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnoFundacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estadio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estadio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CapacidadeEstadio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CapacidadeEstadio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CorUniformePrimaria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CorUniformePrimaria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CorUniformeSecundaria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CorUniformeSecundaria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TimeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

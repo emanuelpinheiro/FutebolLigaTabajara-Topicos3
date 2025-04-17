@@ -8,23 +8,16 @@ namespace FutebolLigaTabajara.Controllers
 {
     public class HomeController : Controller
     {
+        private LigaDBContext db = new LigaDBContext();
+
         public ActionResult Index()
         {
-            return View();
-        }
+            var times = db.Times.Include("Jogadores").Include("ComissaoTecnica").ToList();
+            var statusLiga = times.Count == 20 && times.All(t => t.Status && t.EstaApto());
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.LigaStatus = statusLiga ? "Apta para iniciar" : "Não apta para iniciar";
+            return View(times);
         }
     }
+
 }

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<FutebolLigaTabajara.Models.Estatistica>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Jogador.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Partida.Estadio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gols)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assistencias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinutosJogador)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Jogador.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Partida.Estadio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gols)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assistencias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinutosJogador)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EstatisticaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EstatisticaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EstatisticaId })
+        </td>
+    </tr>
+}
+
+</table>
