@@ -9,10 +9,12 @@ namespace FutebolLigaTabajara.Models
     {
         Goleiro,
         Zagueiro,
+        Lateral,
         Volante,
         Meia,
         Atacante
     }
+
 
     public enum PePreferido
     {

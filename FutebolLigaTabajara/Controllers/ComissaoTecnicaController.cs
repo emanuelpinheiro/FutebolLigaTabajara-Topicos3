@@ -18,8 +18,8 @@ namespace FutebolLigaTabajara.Controllers
         // GET: ComissaoTecnica
         public ActionResult Index()
         {
-            var comissaoTecnica = db.ComissaoTecnica.Include(c => c.Time);
-            return View(comissaoTecnica.ToList());
+            var comissaoTecnica = db.ComissaoTecnica.Include(c => c.Time).ToList();
+            return View(comissaoTecnica);
         }
 
         // GET: ComissaoTecnica/Details/5

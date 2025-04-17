@@ -1,51 +1,37 @@
 ﻿@model IEnumerable<FutebolLigaTabajara.Models.ComissaoTecnica>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Comissão Técnica";
 }
 
-<h2>Index</h2>
+<h2>Comissão Técnica</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Novo Membro", "Create", null, new { @class = "btn btn-success" })
 </p>
-<table class="table">
+
+<table class="table table-bordered table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Time.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cargo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </th>
-        <th></th>
+        <th>@Html.DisplayNameFor(model => model.Time.Nome)</th>
+        <th>@Html.DisplayNameFor(model => model.Nome)</th>
+        <th>@Html.DisplayNameFor(model => model.Cargo)</th>
+        <th>@Html.DisplayNameFor(model => model.DataNascimento)</th>
+        <th>Ações</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Time.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cargo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataNascimento)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ComissaoTecnicaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ComissaoTecnicaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ComissaoTecnicaId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(item.Time != null ? item.Time.Nome : "Sem Time")</td>
+            <td>@item.Nome</td>
+            <td>@item.Cargo</td>
+            <td>@item.DataNascimento.ToShortDateString()</td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ComissaoTecnicaId }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.ComissaoTecnicaId }) |
+                @Html.ActionLink("Excluir", "Delete", new { id = item.ComissaoTecnicaId })
+            </td>
+        </tr>
+    }
 
 </table>

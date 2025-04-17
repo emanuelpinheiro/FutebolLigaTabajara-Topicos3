@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Partida>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Partidas";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nova Partida", "Create", null, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
