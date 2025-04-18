@@ -141,6 +141,10 @@
     <Compile Include="Migrations\202504172026095_InitialCreate.Designer.cs">
       <DependentUpon>202504172026095_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202504180029113_AtualizarModelo.cs" />
+    <Compile Include="Migrations\202504180029113_AtualizarModelo.Designer.cs">
+      <DependentUpon>202504180029113_AtualizarModelo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ComissaoTecnica.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -267,6 +271,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202504172026095_InitialCreate.resx">
       <DependentUpon>202504172026095_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504180029113_AtualizarModelo.resx">
+      <DependentUpon>202504180029113_AtualizarModelo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

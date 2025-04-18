@@ -71,7 +71,7 @@
                 {
                     new Partida
                     {
-                        DataHora = new DateTime(2023, 10, 15, 16, 0, 0),
+                        DataHora = new DateTime(2025, 10, 15, 16, 0, 0),
                         Rodada = 1,
                         Estadio = "Estádio Tabajara",
                         TimeCasaId = times[0].TimeId,
@@ -81,7 +81,7 @@
                     },
                     new Partida
                     {
-                        DataHora = new DateTime(2023, 10, 22, 18, 0, 0),
+                        DataHora = new DateTime(2025, 10, 22, 18, 0, 0),
                         Rodada = 2,
                         Estadio = "Arena Cerrado",
                         TimeCasaId = times[1].TimeId,
@@ -91,7 +91,7 @@
                     },
                     new Partida
                     {
-                        DataHora = new DateTime(2023, 10, 29, 20, 0, 0),
+                        DataHora = new DateTime(2025, 10, 29, 20, 0, 0),
                         Rodada = 3,
                         Estadio = "Estádio da Serra",
                         TimeCasaId = times[2].TimeId,
