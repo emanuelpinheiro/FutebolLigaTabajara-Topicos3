@@ -34,14 +34,20 @@ namespace FutebolLigaTabajara.Controllers
             {
                 Time = t,
                 Pontos = partidas.Where(p => p.TimeCasaId == t.TimeId).Sum(p => p.PontosTimeCasa) +
-                         partidas.Where(p => p.TimeForaId == t.TimeId).Sum(p => p.PontosTimeFora)
+                         partidas.Where(p => p.TimeForaId == t.TimeId).Sum(p => p.PontosTimeFora),
+                SaldoGols = partidas.Where(p => p.TimeCasaId == t.TimeId).Sum(p => p.SaldoGolsTimeCasa) +
+                            partidas.Where(p => p.TimeForaId == t.TimeId).Sum(p => p.SaldoGolsTimeFora)
             })
             .OrderByDescending(c => c.Pontos)
+            .ThenByDescending(c => c.SaldoGols)
             .FirstOrDefault();
 
             ViewBag.Campeao = classificacao?.Time.Nome ?? "Nenhum";
+            ViewBag.Pontos = classificacao?.Pontos ?? 0;
+
             return View();
         }
+
 
     }
 

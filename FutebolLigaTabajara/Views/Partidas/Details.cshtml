@@ -1,74 +1,33 @@
-﻿@model Partida
+﻿@model FutebolLigaTabajara.Models.Partida
 
-@{
-    ViewBag.Title = "Details";
-}
+<h2>Detalhes da Partida</h2>
+<p><strong>Data e Hora:</strong> @Model.DataHora</p>
+<p><strong>Estádio:</strong> @Model.Estadio</p>
+<p><strong>Time da Casa:</strong> @Model.TimeCasa.Nome</p>
+<p><strong>Time Visitante:</strong> @Model.TimeFora.Nome</p>
+<p><strong>Placar:</strong> @Model.GolsTimeCasa x @Model.GolsTimeFora</p>
 
-<h2>Details</h2>
-
-<div>
-    <h4>Partida</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DataHora)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataHora)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rodada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rodada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Estadio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Estadio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeCasaId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeCasaId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeForaId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeForaId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GolsTimeCasa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GolsTimeCasa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GolsTimeFora)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GolsTimeFora)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PartidaId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<h3>Estatísticas</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Jogador</th>
+            <th>Time</th>
+            <th>Gols</th>
+            <th>Assistências</th>
+            <th>Minutos Jogados</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var estatistica in Model.Estatisticas)
+        {
+            <tr>
+                <td>@estatistica.Jogador.Nome</td>
+                <td>@estatistica.Jogador.Time.Nome</td>
+                <td>@estatistica.Gols</td>
+                <td>@estatistica.Assistencias</td>
+                <td>@estatistica.MinutosJogador</td>
+            </tr>
+        }
+    </tbody>
+</table>

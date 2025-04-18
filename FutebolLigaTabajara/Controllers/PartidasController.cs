@@ -29,27 +29,21 @@ namespace FutebolLigaTabajara.Controllers
             var times = db.Times.ToList();
             var rodadas = new List<Partida>();
 
-            for (int i = 0; i < times.Count - 1; i++)
+            for (int turno = 0; turno < 2; turno++) // Turno e returno
             {
-                for (int j = i + 1; j < times.Count; j++)
+                for (int i = 0; i < times.Count - 1; i++)
                 {
-                    rodadas.Add(new Partida
+                    for (int j = i + 1; j < times.Count; j++)
                     {
-                        TimeCasaId = times[i].TimeId,
-                        TimeForaId = times[j].TimeId,
-                        DataHora = DateTime.Now.AddDays(rodadas.Count),
-                        Rodada = rodadas.Count / (times.Count / 2) + 1,
-                        Estadio = times[i].Estadio
-                    });
-
-                    rodadas.Add(new Partida
-                    {
-                        TimeCasaId = times[j].TimeId,
-                        TimeForaId = times[i].TimeId,
-                        DataHora = DateTime.Now.AddDays(rodadas.Count),
-                        Rodada = rodadas.Count / (times.Count / 2) + 1,
-                        Estadio = times[j].Estadio
-                    });
+                        rodadas.Add(new Partida
+                        {
+                            TimeCasaId = turno == 0 ? times[i].TimeId : times[j].TimeId,
+                            TimeForaId = turno == 0 ? times[j].TimeId : times[i].TimeId,
+                            DataHora = DateTime.Now.AddDays(rodadas.Count),
+                            Rodada = rodadas.Count / (times.Count / 2) + 1,
+                            Estadio = turno == 0 ? times[i].Estadio : times[j].Estadio
+                        });
+                    }
                 }
             }
 
@@ -59,6 +53,7 @@ namespace FutebolLigaTabajara.Controllers
             return RedirectToAction("Index");
         }
 
+
         // GET: Partidas/Details/5
         public ActionResult Details(int? id)
         {
@@ -66,13 +61,21 @@ namespace FutebolLigaTabajara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Partida partida = db.Partidas.Find(id);
+
+            var partida = db.Partidas
+                .Include(p => p.TimeCasa)
+                .Include(p => p.TimeFora)
+                .Include(p => p.Estatisticas.Select(e => e.Jogador))
+                .FirstOrDefault(p => p.PartidaId == id);
+
             if (partida == null)
             {
                 return HttpNotFound();
             }
+
             return View(partida);
         }
+
 
         // GET: Partidas/Create
         public ActionResult Create()
