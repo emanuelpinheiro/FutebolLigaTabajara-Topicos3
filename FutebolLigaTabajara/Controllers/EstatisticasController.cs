@@ -21,6 +21,21 @@ namespace FutebolLigaTabajara.Controllers
             var estatisticas = db.Estatisticas.Include(e => e.Jogador).Include(e => e.Partida);
             return View(estatisticas.ToList());
         }
+        public ActionResult Artilharia()
+        {
+            var artilheiros = db.Estatisticas
+                .GroupBy(e => e.Jogador)
+                .Select(g => new
+                {
+                    Jogador = g.Key,
+                    Gols = g.Sum(e => e.Gols)
+                })
+                .OrderByDescending(a => a.Gols)
+                .Take(10)
+                .ToList();
+
+            return View(artilheiros);
+        }
 
         // GET: Estatisticas/Details/5
         public ActionResult Details(int? id)

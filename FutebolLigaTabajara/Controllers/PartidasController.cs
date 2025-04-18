@@ -19,6 +19,40 @@ namespace FutebolLigaTabajara.Controllers
         {
             return View(db.Partidas.ToList());
         }
+        public ActionResult GerarRodadas()
+        {
+            var times = db.Times.ToList();
+            var rodadas = new List<Partida>();
+
+            for (int i = 0; i < times.Count - 1; i++)
+            {
+                for (int j = i + 1; j < times.Count; j++)
+                {
+                    rodadas.Add(new Partida
+                    {
+                        TimeCasaId = times[i].TimeId,
+                        TimeForaId = times[j].TimeId,
+                        DataHora = DateTime.Now.AddDays(rodadas.Count),
+                        Rodada = rodadas.Count / (times.Count / 2) + 1,
+                        Estadio = times[i].Estadio
+                    });
+
+                    rodadas.Add(new Partida
+                    {
+                        TimeCasaId = times[j].TimeId,
+                        TimeForaId = times[i].TimeId,
+                        DataHora = DateTime.Now.AddDays(rodadas.Count),
+                        Rodada = rodadas.Count / (times.Count / 2) + 1,
+                        Estadio = times[j].Estadio
+                    });
+                }
+            }
+
+            db.Partidas.AddRange(rodadas);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
         // GET: Partidas/Details/5
         public ActionResult Details(int? id)
@@ -114,6 +148,30 @@ namespace FutebolLigaTabajara.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Classificacao()
+        {
+            var times = db.Times.ToList();
+            var partidas = db.Partidas.ToList();
+
+            var classificacao = times.Select(t => new
+            {
+                Time = t,
+                Pontos = partidas.Where(p => p.TimeCasaId == t.TimeId).Sum(p => p.PontosTimeCasa) +
+                         partidas.Where(p => p.TimeForaId == t.TimeId).Sum(p => p.PontosTimeFora),
+                SaldoGols = partidas.Where(p => p.TimeCasaId == t.TimeId).Sum(p => p.SaldoGolsTimeCasa) +
+                            partidas.Where(p => p.TimeForaId == t.TimeId).Sum(p => p.SaldoGolsTimeFora),
+                GolsMarcados = partidas.Where(p => p.TimeCasaId == t.TimeId).Sum(p => p.GolsTimeCasa) +
+                               partidas.Where(p => p.TimeForaId == t.TimeId).Sum(p => p.GolsTimeFora)
+            })
+            .OrderByDescending(c => c.Pontos)
+            .ThenByDescending(c => c.SaldoGols)
+            .ThenByDescending(c => c.GolsMarcados)
+            .ToList();
+
+            return View(classificacao);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

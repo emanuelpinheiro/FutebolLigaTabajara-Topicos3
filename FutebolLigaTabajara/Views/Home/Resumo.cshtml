@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Resumo do Campeonato";
+}
+
+<h2>O que rolou no campeonato?</h2>
+
+<div class="alert alert-success">
+    <strong>Campeão:</strong> @ViewBag.Campeao
+</div>
+
+<p>Parabéns ao campeão da Liga Tabajara de Futebol!</p>
+
+<div>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Voltar para a Página Inicial</a>
+</div>
