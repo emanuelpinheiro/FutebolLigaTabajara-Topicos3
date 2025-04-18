@@ -18,16 +18,58 @@
             // Populando a tabela Times
             if (!context.Times.Any())
             {
-                var times = new List<Time>
+                var times = new List<Time>();
+                for (int i = 1; i <= 20; i++)
                 {
-                    new Time { Nome = "Tabajara FC", Cidade = "Tabajara City", Estado = "TO", AnoFundacao = 1998, Status = true },
-                    new Time { Nome = "Ajax do Cerrado", Cidade = "Cerradópolis", Estado = "CE", AnoFundacao = 2002, Status = true },
-                    new Time { Nome = "Guerreiros da Serra", Cidade = "Serra Alta", Estado = "SP", AnoFundacao = 2005, Status = true }
-                };
+                    times.Add(new Time
+                    {
+                        Nome = $"Time {i}",
+                        Cidade = $"Cidade {i}",
+                        Estado = "SP",
+                        AnoFundacao = 2000 + i,
+                        Status = true
+                    });
+                }
 
                 context.Times.AddOrUpdate(t => t.Nome, times.ToArray());
                 context.SaveChanges();
+
+                foreach (var time in times)
+                {
+                    var jogadores = new List<Jogador>();
+                    for (int j = 1; j <= 30; j++)
+                    {
+                        jogadores.Add(new Jogador
+                        {
+                            Nome = $"Jogador {j} do {time.Nome}",
+                            DataNascimento = new DateTime(1990 + j % 10, 1, 1),
+                            Nacionalidade = "Brasileiro",
+                            Posicao = Posicao.Atacante,
+                            NumeroCamisa = j,
+                            Altura = 1.80,
+                            Peso = 75,
+                            PePreferido = PePreferido.Direito,
+                            TimeId = time.TimeId
+                        });
+                    }
+
+                    context.Jogadores.AddRange(jogadores);
+
+                    var comissao = new List<ComissaoTecnica>
+        {
+            new ComissaoTecnica { Nome = "Treinador", Cargo = Cargo.Treinador, TimeId = time.TimeId },
+            new ComissaoTecnica { Nome = "Preparador Físico", Cargo = Cargo.PreparadorFisico, TimeId = time.TimeId },
+            new ComissaoTecnica { Nome = "Fisioterapeuta", Cargo = Cargo.Fisioterapeuta, TimeId = time.TimeId },
+            new ComissaoTecnica { Nome = "Auxiliar Técnico", Cargo = Cargo.Auxiliar, TimeId = time.TimeId },
+            new ComissaoTecnica { Nome = "Treinador de Goleiros", Cargo = Cargo.TreinadorGoleiros, TimeId = time.TimeId }
+        };
+
+                    context.ComissaoTecnica.AddRange(comissao);
+                }
+
+                context.SaveChanges();
             }
+
 
             // Populando a tabela ComissaoTecnica
             if (!context.ComissaoTecnica.Any())

@@ -30,6 +30,19 @@ namespace FutebolLigaTabajara.Models
 
         public int TimeId { get; set; }
         public virtual Time Time { get; set; }
+
+        // Adicionando a propriedade Jogadores
+        public virtual ICollection<Jogador> Jogadores { get; set; }
+
+        // Adicionando a propriedade de ComissaoTecnica
+        public virtual ICollection<ComissaoTecnica> ComissaoTecnica { get; set; }
+
+        public bool EstaApto()
+        {
+            return Jogadores != null && Jogadores.Count >= 30 &&
+                   ComissaoTecnica != null && ComissaoTecnica.Count >= 5;
+        }
+
     }
 
 }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FutebolLigaTabajara;
+using FutebolLigaTabajara.Models;
 
 namespace FutebolLigaTabajara.Controllers
 {
@@ -17,7 +18,11 @@ namespace FutebolLigaTabajara.Controllers
         // GET: Partidas
         public ActionResult Index()
         {
-            return View(db.Partidas.ToList());
+            var partidas = db.Partidas
+                .Include(p => p.TimeCasa)
+                .Include(p => p.TimeFora)
+                .ToList();
+            return View(partidas);
         }
         public ActionResult GerarRodadas()
         {
@@ -84,6 +89,15 @@ namespace FutebolLigaTabajara.Controllers
         {
             if (ModelState.IsValid)
             {
+                partida.TimeCasa = db.Times.Find(partida.TimeCasaId);
+                partida.TimeFora = db.Times.Find(partida.TimeForaId);
+
+                if (!partida.EstaApta())
+                {
+                    ModelState.AddModelError("", "A partida não está apta para iniciar. Verifique os critérios.");
+                    return View(partida);
+                }
+
                 db.Partidas.Add(partida);
                 db.SaveChanges();
                 return RedirectToAction("Index");

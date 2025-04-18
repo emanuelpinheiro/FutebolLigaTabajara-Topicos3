@@ -4,66 +4,41 @@
     ViewBag.Title = "Partidas";
 }
 
-<h2>Index</h2>
+<h2>Partidas</h2>
 
 <p>
     @Html.ActionLink("Nova Partida", "Create", null, new { @class = "btn btn-success" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DataHora)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rodada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estadio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeCasaId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeForaId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GolsTimeCasa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GolsTimeFora)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataHora)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rodada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estadio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeCasaId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeForaId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GolsTimeCasa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GolsTimeFora)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PartidaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PartidaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PartidaId })
-        </td>
-    </tr>
-}
-
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.DataHora)</th>
+            <th>@Html.DisplayNameFor(model => model.Rodada)</th>
+            <th>@Html.DisplayNameFor(model => model.Estadio)</th>
+            <th>Time da Casa</th>
+            <th>Time Visitante</th>
+            <th>@Html.DisplayNameFor(model => model.GolsTimeCasa)</th>
+            <th>@Html.DisplayNameFor(model => model.GolsTimeFora)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.DataHora)</td>
+                <td>@Html.DisplayFor(modelItem => item.Rodada)</td>
+                <td>@Html.DisplayFor(modelItem => item.Estadio)</td>
+                <td>@item.TimeCasa?.Nome</td>
+                <td>@item.TimeFora?.Nome</td>
+                <td>@Html.DisplayFor(modelItem => item.GolsTimeCasa)</td>
+                <td>@Html.DisplayFor(modelItem => item.GolsTimeFora)</td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.PartidaId }, new { @class = "btn btn-primary btn-sm" }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.PartidaId }, new { @class = "btn btn-info btn-sm" }) |
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.PartidaId }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+         }
+    </tbody>
 </table>

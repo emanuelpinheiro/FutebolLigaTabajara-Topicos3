@@ -12,15 +12,17 @@ namespace FutebolLigaTabajara.Controllers
 
         public ActionResult Index()
         {
-            var times = db.Times.Include("Jogadores").Include("ComissaoTecnica").ToList();
-            var statusLiga = times.Count == 20 && times.All(t => t.Status && t.EstaApto());
+            var liga = new Liga
+            {
+                Times = db.Times.Include("Jogadores").Include("ComissaoTecnica").ToList()
+            };
 
-            ViewBag.LigaStatus = statusLiga ? "Apta para iniciar" : "Não apta para iniciar";
-            ViewBag.TotalTimes = times.Count;
+            ViewBag.LigaStatus = liga.PodeIniciar() ? "Apta para iniciar" : "Não apta para iniciar";
+            ViewBag.TotalTimes = liga.Times.Count;
             ViewBag.TotalJogadores = db.Jogadores.Count();
             ViewBag.TotalPartidas = db.Partidas.Count();
 
-            return View(times);
+            return View(liga.Times);
         }
 
         public ActionResult Resumo()

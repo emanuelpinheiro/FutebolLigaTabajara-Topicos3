@@ -145,6 +145,10 @@
     <Compile Include="Migrations\202504180029113_AtualizarModelo.Designer.cs">
       <DependentUpon>202504180029113_AtualizarModelo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202504180137039_AtualizacaoMigration.cs" />
+    <Compile Include="Migrations\202504180137039_AtualizacaoMigration.Designer.cs">
+      <DependentUpon>202504180137039_AtualizacaoMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ComissaoTecnica.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -274,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202504180029113_AtualizarModelo.resx">
       <DependentUpon>202504180029113_AtualizarModelo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504180137039_AtualizacaoMigration.resx">
+      <DependentUpon>202504180137039_AtualizacaoMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
